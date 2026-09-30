@@ -13,8 +13,10 @@ class Branch extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = [];
-    
+protected $fillable = [
+        'name',
+        'school_id',
+    ];    
     protected static function newFactory(): BranchFactory
     {
         //return BranchFactory::new();

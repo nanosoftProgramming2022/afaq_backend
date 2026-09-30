@@ -16,7 +16,8 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Session::class)->index()->constrained()->cascadeOnDelete();
+            // $table->foreignIdFor(Session::class)->index()->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Session::class)->nullable()->index()->constrained()->nullOnDelete();
             $table->foreignIdFor(Student::class)->index()->constrained()->cascadeOnDelete();
             $table->boolean('is_present')->default(0);
             $table->foreignIdFor(TeacherProfile::class, 'teacher_id')->nullable()->index()->constrained('teacher_profiles')->nullOnDelete();

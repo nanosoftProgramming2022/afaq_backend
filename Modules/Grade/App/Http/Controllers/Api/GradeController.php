@@ -20,11 +20,13 @@ class GradeController extends Controller
     public function __construct(GradeService $gradeService)
     {
         $this->middleware('auth:user');
-        $this->middleware('role:Super Admin|School Manager');
-        $this->middleware('permission:Index-grade|Create-grade|Edit-grade|Delete-grade', ['only' => ['index', 'store', 'getGradesByGradeCategory']]);
-        $this->middleware('permission:Create-grade', ['only' => ['store']]);
-        $this->middleware('permission:Edit-grade', ['only' => ['update', 'activate']]);
-        $this->middleware('permission:Delete-grade', ['only' => ['destroy']]);
+        $this->middleware('role:Super Admin|School Manager|Teacher');
+                $this->middleware('role:Super Admin|School Manager|Financial Director|Teacher')->only('getGradesByGradeCategory');
+
+        // $this->middleware('permission:Index-grade|Create-grade|Edit-grade|Delete-grade', ['only' => ['index', 'store', 'getGradesByGradeCategory']]);
+        // $this->middleware('permission:Create-grade', ['only' => ['store']]);
+        // $this->middleware('permission:Edit-grade', ['only' => ['update', 'activate']]);
+        // $this->middleware('permission:Delete-grade', ['only' => ['destroy']]);
         $this->gradeService = $gradeService;
     }
     public function index(Request $request)

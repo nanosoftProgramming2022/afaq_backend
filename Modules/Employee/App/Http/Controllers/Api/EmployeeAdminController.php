@@ -33,12 +33,45 @@ class EmployeeAdminController extends Controller
         return returnMessage(true, 'Employees', EmployeeResource::collection($employees)->response()->getData(true));
     }
 
+    // public function store(EmployeeRequest $request)
+    // {
+    //     try {
+    //         DB::beginTransaction();
+    //         $data = (new EmployeeUserDto($request))->dataFromRequest();
+    //         if ($employee->hasRole('Teacher')) {
+    //         \Modules\Teacher\App\Models\TeacherProfile::firstOrCreate([
+    //             'user_id' => $employee->id,
+    //         ], [
+    //             // أضف أي حقول إضافية مطلوبة في جدول teacher_profiles إذا وجدت (مثل school_id)
+    //             'school_id' => $employee->school_id ?? $request->school_id,
+    //         ]);
+    //     }
+    //         // $employee = (new UserService())->saveEmployeeUser($data);
+    //         DB::commit();
+    //         return returnMessage(true, 'Employee Created Successfully', $employee);
+    //     } catch (\Exception $e) {
+    //         DB::rollBack();
+    //         return returnMessage(false, $e->getMessage(), null, 'error');
+    //     }
+    // }
     public function store(EmployeeRequest $request)
     {
         try {
             DB::beginTransaction();
             $data = (new EmployeeUserDto($request))->dataFromRequest();
+            
+            // 1. أولاً نقوم بحفظ الموظف وتخزين النتيجة في متغير employee
             $employee = (new UserService())->saveEmployeeUser($data);
+
+            // 2. ثم نتحقق مما إذا كان معلماً لإنشاء الـ TeacherProfile الخاص به
+            if ($employee->hasRole('Teacher')) {
+                \Modules\Teacher\App\Models\TeacherProfile::firstOrCreate([
+                    'user_id' => $employee->id,
+                ], [
+                    'school_id' => $employee->school_id ?? $request->school_id,
+                ]);
+            }
+
             DB::commit();
             return returnMessage(true, 'Employee Created Successfully', $employee);
         } catch (\Exception $e) {
@@ -63,7 +96,7 @@ class EmployeeAdminController extends Controller
 
     public function employeeRoles()
     {
-        $roles = ['Financial Director', 'Sales Employee', 'Purchasing Employee', 'Salaries Employee', 'Maintenance Employee', 'Other'];
+        $roles = ['Financial Director', 'Sales Employee', 'Teacher', 'Purchasing Employee', 'Salaries Employee', 'Maintenance Employee', 'Other'];
         $employeeRoles = Role::select('id', 'name')->whereIn('name', $roles)->orderBy('id')->get();
         return returnMessage(true, 'Employee Roles', $employeeRoles);
     }

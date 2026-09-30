@@ -20,6 +20,8 @@ class HistoryController extends Controller
     {
         $data = $request->all();
         $histories = $this->historyService->findAll($data);
+              // dd($histories);
+
         return returnMessage(true, 'Histories fetched successfully', HistoryResource::collection($histories)->response()->getData(true));
     }
 }

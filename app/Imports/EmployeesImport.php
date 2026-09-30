@@ -21,7 +21,7 @@ class EmployeesImport implements ToCollection, WithHeadingRow, SkipsEmptyRows, W
     {
         static $roles = null;
         if ($roles === null) {
-            $roles = Role::whereIn('name', ['Financial Director', 'Sales Employee', 'Purchasing Employee', 'Salaries Employee', 'Maintenance Employee', 'Other'])->get();
+            $roles = Role::whereIn('name', ['Financial Director', 'Sales Employee', 'Purchasing Employee', 'Salaries Employee', 'Maintenance Employee', 'Teacher','Other'])->get();
         }
         return $roles;
     }

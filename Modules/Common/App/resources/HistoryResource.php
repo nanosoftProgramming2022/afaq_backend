@@ -26,7 +26,15 @@ class HistoryResource extends JsonResource
             'school' => $this->school_name,
             'is_present' => $this->is_present,
             'created_at' => $this->created_at->format('Y-m-d h:i A'),
-            'updated_at' => $this->updated_at->format('Y-m-d h:i A')
-        ];
+            'updated_at' => $this->updated_at->format('Y-m-d h:i A'),
+
+// جلب الصف الدراسي
+            'grade' => optional(optional($this->student)->grade)->name ?? optional(optional($this->class)->grade)->name ?? 'N/A',
+            
+            // جلب فئة أو مرحلة الصف (grade_categories)
+            'stage' => optional(optional(optional($this->student)->grade)->gradeCategory)->name 
+                    ?? optional(optional($this->student)->gradeCategory)->name 
+                    ?? 'N/A',
+                            ];
     }
 }

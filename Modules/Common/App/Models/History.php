@@ -57,6 +57,7 @@ class History extends Model
     }
 
     //Helper
+    //Helper
     public function scopeAvailable($query)
     {
         if (auth('user')->check()) {
@@ -64,12 +65,30 @@ class History extends Model
             if ($admin->hasRole('Super Admin')) {
             }
             if ($admin->hasRole('School Manager')) {
-                return $query->where('school_id', $admin->school_id);
+                // استخدام العلاقة لأن جدول histories ليس به عمود school_id مباشرة
+                return $query->whereHas('school', function ($q) use ($admin) {
+                    $q->where('id', $admin->school_id);
+                });
             }
             if ($admin->hasRole('Teacher')) {
-                return $query->where('teacher_id', $admin->teacherProfile->id);
+                return $query->where('teacher_id', optional($admin->teacherProfile)->id);
             }
         }
     }
+    // public function scopeAvailable($query)
+    // {
+    //     if (auth('user')->check()) {
+    //         $admin = auth('user')->user();
+    //         if ($admin->hasRole('Super Admin')) {
+    //         }
+    //         if ($admin->hasRole('School Manager')) {
+
+    //             return $query->where('school_id', $admin->school_id);
+    //         }
+    //         if ($admin->hasRole('Teacher')) {
+    //             return $query->where('teacher_id', $admin->teacherProfile->id);
+    //         }
+    //     }
+    // }
 }
 

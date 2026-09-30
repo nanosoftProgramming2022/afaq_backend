@@ -16,7 +16,7 @@ use Modules\Employee\App\Http\Controllers\Api\EmployeeAdminController;
 Route::group(['prefix' => "admin"], function () {
     Route::post("employees/import", [EmployeeAdminController::class, 'import']);
     Route::apiResource("employees", EmployeeAdminController::class)->only(['index','store']);
-    Route::post("employees/{user}", [EmployeeAdminController::class, 'update']);
+  Route::post("employees/{user}", [EmployeeAdminController::class, 'update']);
     //Roles
     Route::get("employee-roles", [EmployeeAdminController::class, "employeeRoles"]);
 });

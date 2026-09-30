@@ -24,15 +24,26 @@ class AttendanceController extends Controller
       $this->middleware('permission:Delete-attendance', ['only' => ['destroy']]);
       $this->attendanceService = $attendanceService;
    }
-
-   public function index(AttendanceRequest $request){
+   public function index(AttendanceRequest $request)
+{
     $data = $request->all();
-    $session = $this->attendanceService->getSessionWithStudents($data);
-    if(!$session){
-        return returnMessage(false, 'Session Not Found', null, 'not_found');
+    $students = $this->attendanceService->getStudentsByGradeAndTerm($data);
+
+    if ($students->isEmpty()) {
+        return returnMessage(false, 'No Students Found for this Grade', null, 'not_found');
     }
-    return returnMessage(true, 'Students Fetched Successfully', new StudentAttendanceResource($session));
- }
+
+    return returnMessage(true, 'Students Fetched Successfully', new StudentAttendanceResource($students));
+}
+
+//    public function index(AttendanceRequest $request){
+//     $data = $request->all();
+//     $session = $this->attendanceService->getStudentsByGradeAndTerm($data);
+//     if(!$session){
+//         return returnMessage(false, 'Session Not Found', null, 'not_found');
+//     }
+//     return returnMessage(true, 'Students Fetched Successfully', new StudentAttendanceResource($session));
+//  }
 
    public function store(AttendanceRequest $request){
       try{

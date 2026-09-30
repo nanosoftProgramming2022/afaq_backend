@@ -20,16 +20,19 @@ class AttendanceRequest extends FormRequest
     {
         if($this->isMethod('GET')){
             return [
-                'class_id' => ['required'],
+              'grade_id'    => ['required', 'exists:grade_categories,id'], // أو الجدول الخاص بالصف عندك
+                'stage_id'    => ['required', 'exists:grades,id'], // أو الجدول الخاص بالمرحلة
+                'semester'    => ['required', 'string', 'in:first,second'], // أو term_id لو بتبعت برقم الترم
+                // 'class_id' => ['required'],
                 'day' => ['required', 'in:monday,tuesday,wednesday,thursday,friday,saturday,sunday'],
-                'semester' => ['required', 'string', 'in:first,second'],
-                'session_number' => ['required', 'integer', 'min:1', 'max:15'],
+                // 'semester' => ['required', 'string', 'in:first,second'],
+                // 'session_number' => ['required', 'integer', 'min:1', 'max:15'],
                 'year' => ['required', 'integer'],
             ];
         }
         if ($this->isMethod('POST')) {
             return [
-                'session_id' => ['required', 'exists:sessions,id'],
+                'session_id' => [ 'exists:sessions,id'],
                 'attendance' => ['required', 'array'],
                 'attendance.*.student_id' => ['required', 'exists:students,id'],
                 'attendance.*.is_present' => ['required', 'boolean'],
