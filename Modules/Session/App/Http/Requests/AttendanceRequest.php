@@ -20,8 +20,8 @@ class AttendanceRequest extends FormRequest
     {
         if($this->isMethod('GET')){
             return [
-              'grade_id'    => ['required', 'exists:grade_categories,id'], // أو الجدول الخاص بالصف عندك
-                'stage_id'    => ['required', 'exists:grades,id'], // أو الجدول الخاص بالمرحلة
+'grade_id' => ['required', 'exists:grades,id'], // تم التعديل هنا لفحص جدول grades
+                // 'stage_id'    => ['required', 'exists:grades,id'], // أو الجدول الخاص بالمرحلة
                 'semester'    => ['required', 'string', 'in:first,second'], // أو term_id لو بتبعت برقم الترم
                 // 'class_id' => ['required'],
                 'day' => ['required', 'in:monday,tuesday,wednesday,thursday,friday,saturday,sunday'],
