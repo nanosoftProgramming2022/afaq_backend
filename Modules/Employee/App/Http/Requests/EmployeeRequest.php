@@ -17,7 +17,7 @@ class EmployeeRequest extends FormRequest
      */
     public function rules(): array
     {
-        $roles = Role::whereIn('name', ['Financial Director', 'Teacher', 'Sales Employee', 'Purchasing Employee', 'Salaries Employee', 'Maintenance Employee', 'Other'])->get();
+        $roles = Role::whereIn('name', ['Financial Director', 'Teacher', 'Sales Employee', 'Purchasing Employee', 'Salaries Employee', 'Maintenance Employee',"DataEntry", 'Other'])->get();
         $roles_ids = $roles->pluck('id');
         $other_role_id = $roles->firstWhere('name', 'Other')?->id;
         $rules = [

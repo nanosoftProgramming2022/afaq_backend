@@ -96,7 +96,7 @@ class EmployeeAdminController extends Controller
 
     public function employeeRoles()
     {
-        $roles = ['Financial Director', 'Sales Employee', 'Teacher', 'Purchasing Employee', 'Salaries Employee', 'Maintenance Employee', 'Other'];
+        $roles = ['Financial Director', 'Sales Employee', 'Teacher', 'Purchasing Employee', 'Salaries Employee', 'Maintenance Employee',"DataEntry", 'Other'];
         $employeeRoles = Role::select('id', 'name')->whereIn('name', $roles)->orderBy('id')->get();
         return returnMessage(true, 'Employee Roles', $employeeRoles);
     }

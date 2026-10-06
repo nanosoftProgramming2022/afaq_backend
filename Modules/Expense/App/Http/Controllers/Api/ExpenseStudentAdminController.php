@@ -23,7 +23,7 @@ class ExpenseStudentAdminController extends Controller
     public function __construct(private StudentExpenseService $studentExpenseService)
     {
         $this->middleware('auth:user');
-        $this->middleware('role:School Manager|Financial Director|Sales Employee');
+      $this->middleware('role:School Manager|Financial Director|Sales Employee|DataEntry|Super Admin');
     }
 
     public function index(Request $request)

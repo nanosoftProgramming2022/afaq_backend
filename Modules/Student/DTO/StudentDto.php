@@ -68,7 +68,8 @@ class StudentDto
         if ($request->get('grade_id'))
             $this->grade_id = $request->get('grade_id');
         if ($request->get('class_id'))
-            $this->class_id = $request->get('class_id');
+            // $this->class_id = $request->get('class_id');
+          $this->class_id = $request->get('class_id') ? (int) $request->get('class_id') : null;
         if (auth('user')->user()->hasRole('Super Admin')) {
             if ($request->get('school_id')) {
                 $this->school_id = $request->get('school_id');

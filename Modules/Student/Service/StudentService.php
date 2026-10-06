@@ -144,7 +144,7 @@ class StudentService
             $data['home_map_image'] = $this->uploadFile(request()->file('home_map_image'), 'student/home_map_image');
         }
 
-
+dd($data);
         $student->update($data);
 
         if ($studentUserData && $student->user_id) {

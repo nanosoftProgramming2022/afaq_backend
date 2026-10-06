@@ -20,7 +20,7 @@ class GradeController extends Controller
     public function __construct(GradeService $gradeService)
     {
         $this->middleware('auth:user');
-        $this->middleware('role:Super Admin|School Manager|Teacher');
+        $this->middleware('role:Super Admin|School Manager|Teacher|DataEntry');
                 $this->middleware('role:Super Admin|School Manager|Financial Director|Teacher')->only('getGradesByGradeCategory');
 
         // $this->middleware('permission:Index-grade|Create-grade|Edit-grade|Delete-grade', ['only' => ['index', 'store', 'getGradesByGradeCategory']]);

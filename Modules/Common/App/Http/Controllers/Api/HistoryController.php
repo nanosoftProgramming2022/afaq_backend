@@ -13,7 +13,7 @@ class HistoryController extends Controller
     public function __construct(HistoryService $historyService)
     {
         $this->middleware('auth:user');
-        $this->middleware('role:Super Admin|School Manager|Teacher');
+        $this->middleware('role:Super Admin|School Manager|Teacher|DataEntry');
         $this->historyService = $historyService;
     }
     public function index(Request $request)
