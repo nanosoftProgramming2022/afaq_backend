@@ -136,13 +136,14 @@ $total = $exception?->pivot?->exception_price ?? $studentExpense->amount;
                 $message =
                     "الفاضل ولي أمر الطالب: {$studentName}\n" .
                     "تم قبول المبلغ المدفوع بنجاح\n\n" .
-                    "المبلغ المدفوع: {$paidInThisPayment}\n" .
-                    "تاريخ دفع المبلغ: {$paymentDate}\n\n" .
+                    // "المبلغ المدفوع: {$paidInThisPayment}\n" .
+                    "المبلغ المدفوع: {$paidInThisPayment} ريال عماني\n".
+                    "تاريخ دفع المبلغ: {$paymentDate}ريال عماني\n\n" .
                     // "تفاصيل رسوم الطالب للعام الدراسي كامل:\n" .
                     // "{$detailsBlock}\n\n" .
-                    "إجمالي الرسوم: {$total}\n" .
-                    "إجمالي المدفوع حتى الآن: {$totalPaid}\n" .
-                    "المتبقي: {$remaining}";
+                    "إجمالي الرسوم: {$total}ريال عماني\n" .
+                    "إجمالي المدفوع حتى الآن: {$totalPaid}ريال عماني\n" .
+                    "المتبقي: {$remaining}ريال عماني";
             } else {
                 $message = 'تم رفض طلب دفع النفقات الخاص بك و السبب: ' . ($studentExpense->rejected_reason ?? 'لم يتم تحديد السبب');
             }
