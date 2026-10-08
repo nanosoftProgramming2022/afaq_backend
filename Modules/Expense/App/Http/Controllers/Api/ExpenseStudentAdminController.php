@@ -138,7 +138,7 @@ $total = $exception?->pivot?->exception_price ?? $studentExpense->amount;
                     "تم قبول المبلغ المدفوع بنجاح\n\n" .
                     // "المبلغ المدفوع: {$paidInThisPayment}\n" .
                     "المبلغ المدفوع: {$paidInThisPayment} ريال عماني\n".
-                    "تاريخ دفع المبلغ: {$paymentDate}ريال عماني\n\n" .
+                    "تاريخ دفع المبلغ: {$paymentDate}\n" .
                     // "تفاصيل رسوم الطالب للعام الدراسي كامل:\n" .
                     // "{$detailsBlock}\n\n" .
                     "إجمالي الرسوم: {$total}ريال عماني\n" .
