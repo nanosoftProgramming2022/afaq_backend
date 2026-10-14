@@ -26,19 +26,18 @@ class ClassController extends Controller
   //  }
 
 
-  public function __construct(ClassService $classService)
+public function __construct(ClassService $classService)
 {
     $this->middleware('auth:user')->except(['index']);
 
     $this->middleware('role:Super Admin|School Manager|Teacher')
         ->except(['index']);
 
-    $this->middleware('permission:Index-class')
-        ->only(['index'])
-        ->unless(fn () => request()->routeIs('api.*')); // Remove this line if unnecessary
-
     $this->middleware('permission:Create-class')->only(['store']);
-    $this->middleware('permission:Edit-class')->only(['update', 'activate']);
+
+    $this->middleware('permission:Edit-class')
+        ->only(['update', 'activate']);
+
     $this->middleware('permission:Delete-class')->only(['destroy']);
 
     $this->classService = $classService;
