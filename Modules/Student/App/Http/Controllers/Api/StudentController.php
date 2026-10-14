@@ -75,8 +75,8 @@ class StudentController extends Controller
                 'parent_phone_suffix' => $this->maskedPhoneSuffix($student->parent_phone ?? null),
             ]);
 
-            ParentNotificationOnStudentRegisterWhatsAppJob::dispatch($student, $settings, $request->get('password'))
-                ->onConnection('database');
+            // ParentNotificationOnStudentRegisterWhatsAppJob::dispatch($student, $settings, $request->get('password'))
+            //     ->onConnection('database');
 
             Log::info('Student store (admin): parent WhatsApp job dispatched', [
                 'student_id' => $student->id,
