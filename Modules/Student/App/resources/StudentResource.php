@@ -25,8 +25,10 @@ class StudentResource extends JsonResource
             'school' => $this->school->name,
             'is_active' => $this->is_active,
             'is_graduated' => $this->is_graduated,
-            'created_at' => $this->created_at->format('Y-m-d h:i A'),
-            'updated_at' => $this->updated_at->format('Y-m-d h:i A'),
+              'created_at' => $this->created_at?->format('Y-m-d h:i A'),
+            'updated_at' => $this->updated_at?->format('Y-m-d h:i A'),
+            // 'created_at' => $this->created_at->format('Y-m-d h:i A'),
+            // 'updated_at' => $this->updated_at->format('Y-m-d h:i A'),
         ];
 
         if (isset($this->is_attend)) {
